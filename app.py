@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 from utils.data import load_data
-from utils.config import ORDERS, COLORS
+from utils.figure import plot_family_size_distribution, plot_outcome
 df = load_data("data/titanic.csv")
 df.columns = df.columns.str.lower()
 df["class"] = df["pclass"].map({1: "First", 2: "Second", 3: "Third"})
@@ -35,12 +35,8 @@ c1,c2=st.columns(2)
 
 
 with c1:
-    fig = px.histogram(data, x="family_size", nbins=11, labels={"family_size": "Family size (incl. the passenger)"},
-                   title="How big were the families on board?")
-    fig.update_layout(bargap=0.1, yaxis_title="Passengers")
-    st.plotly_chart(fig, use_container_width=True)
+    fig1 = plot_family_size_distribution(data)
+    st.plotly_chart(fig1, use_container_width=True)
 with c2:
-    fig2=data['survived'].value_counts().reset_index()
-    fig2.columns=['survived','count']
-    fig = px.pie(fig2, values='count', names='survived', title="Survival rate")
-    st.plotly_chart(fig, use_container_width=True)
+    fig2 = plot_outcome(data)
+    st.plotly_chart(fig2, use_container_width=True)
