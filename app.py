@@ -35,6 +35,12 @@ data = df[(df["class"].isin(classes)) & (df["sex"].isin(genders))]
 c1,c2=st.columns(2)
 
 
+
+st.write("Titanic explorer")
+st.metric(label="Total Passengers", value=len(data))
+st.metric(label="Survived", value=len(data[data["survival"] == "Survived"]))
+st.metric(label="Died", value=len(data[data["survival"] == "Died"]))
+
 with c1:
     fig1 = plot_family_size_distribution(data)
     st.plotly_chart(fig1, use_container_width=True)
