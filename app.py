@@ -27,24 +27,27 @@ if show_data:
 
 
 classes = st.multiselect("Select class", options=ORDERS["class"], default=ORDERS["class"])
-genders = st.multiselect("Select gender", options=df["sex"].unique(), default=df["sex"].unique())
+genders = st.radio("Select gender", options=list(df["sex"].unique()) + ["all"], default=df["sex"].unique())
 
+
+if "all" in genders:
+    genders = list(df["sex"].unique())
 
 data = df[(df["class"].isin(classes)) & (df["sex"].isin(genders))]
 
 c1,c2,c3,c4= st.columns(4)
 
 with c1:
-    st.metric(label="Total Passengers", value=len(data))
+    st.metric(label="Total Passengers", value=len(data),border=True)
 
 with c2:
-    st.metric(label="Survival Rate", value=f"{len(data[data['survival'] == 'Survived'])/len(data)*100:.2f}%")
+    st.metric(label="Survival Rate", value=f"{len(data[data['survival'] == 'Survived'])/len(data)*100:.2f}%",border=True)
 
 with c3:
-    st.metric(label="Median Age", value=f"{data['age'].median():.2f}")
+    st.metric(label="Median Age", value=f"{data['age'].median():.2f}",border=True)
 
 with c4:
-    st.metric(label="Median Fare", value=f"${data['fare'].median():.2f}")
+    st.metric(label="Median Fare", value=f"${data['fare'].median():.2f}",border=True)
 
 
 
