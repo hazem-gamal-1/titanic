@@ -38,8 +38,10 @@ c1,c2=st.columns(2)
 
 st.write("Titanic explorer")
 st.metric(label="Total Passengers", value=len(data))
-st.metric(label="Survived", value=len(data[data["survival"] == "Survived"]))
-st.metric(label="Died", value=len(data[data["survival"] == "Died"]))
+st.metric(label="survival rate", value=f"{len(data[data['survival'] == 'Survived'])/len(data)*100:.2f}%")
+st.metric(label="median age", value=f"{data['age'].median():.2f}")
+st.metric(label="median fare", value=f"${data['fare'].median():.2f}")
+
 
 with c1:
     fig1 = plot_family_size_distribution(data)
