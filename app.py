@@ -5,6 +5,7 @@ import plotly.express as px
 import streamlit as st
 from utils.data import load_data
 from utils.figure import plot_family_size_distribution, plot_outcome
+from utils.config import COLORS, ORDERS
 df = load_data("data/titanic.csv")
 df.columns = df.columns.str.lower()
 df["class"] = df["pclass"].map({1: "First", 2: "Second", 3: "Third"})
