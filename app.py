@@ -32,13 +32,21 @@ genders = st.multiselect("Select gender", options=df["sex"].unique(), default=df
 
 data = df[(df["class"].isin(classes)) & (df["sex"].isin(genders))]
 
-st.columns(4)
+c1,c2,c3,c4= st.columns(4)
 
-st.write("Titanic explorer")
-st.metric(label="Total Passengers", value=len(data))
-st.metric(label="survival rate", value=f"{len(data[data['survival'] == 'Survived'])/len(data)*100:.2f}%")
-st.metric(label="median age", value=f"{data['age'].median():.2f}")
-st.metric(label="median fare", value=f"${data['fare'].median():.2f}")
+with c1:
+    st.metric(label="Total Passengers", value=len(data))
+
+with c2:
+    st.metric(label="Survival Rate", value=f"{len(data[data['survival'] == 'Survived'])/len(data)*100:.2f}%")
+
+with c3:
+    st.metric(label="Median Age", value=f"{data['age'].median():.2f}")
+
+with c4:
+    st.metric(label="Median Fare", value=f"${data['fare'].median():.2f}")
+
+
 
 c1,c2=st.columns(2)
 
